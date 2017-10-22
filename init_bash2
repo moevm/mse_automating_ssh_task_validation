@@ -1,0 +1,16 @@
+# This script provides the ability to configure a virtual machine in order 
+# to prepare it for this challenge. It runs for every virtual machine created 
+# prior to assigning it to a user. The execution time is limited to 5 minutes. 
+sudo sh -c 'echo HISTFILE=/home/box/.bash_history » /.box/bashrc.d/box/rules' 
+sudo sh -c $'echo "export PROMPT_COMMAND=\'history -a;history -r\'" > /.box/bashrc.d/box/rules' 
+PROMPT_COMMAND="history -a" 
+sudo chsh -s /bin/bash box 
+sudo useradd vasya 
+echo "vasya:vasya" | sudo chpasswd vasya 
+echo "box:box" | sudo chpasswd box 
+sudo chsh -s /bin/bash vasya 
+sudo chmod 777 /home 
+sudo -S -u vasya mkdir /home/vasya 
+sudo -S -u vasya chmod 700 /home/vasya 
+sudo chmod 755 /home 
+sudo echo "hello scp, bro" > /home/box/pi_course_rools.txt
