@@ -9,7 +9,6 @@ commandOne = 'ssh-keygen'
 commandTwo = 'ssh-copy-id'
 commandThree = 'ssh-agent'
 commandFour = 'ssh-add'
-commandThreeHalf = 'exec'
 
 def test_connection(s):
     assert s.run('true').succeeded, "Could not connect to server"
@@ -25,10 +24,6 @@ def test_history_content_two(s):
 def test_history_content_three(s):
     file_content = s.run('cat /home/box/.bash_history')
     assert commandThree in file_content, "You was not enter necessary commands. You need to use ssh-agent"
-
-def test_history_content_three_and_half(s):
-    file_content = s.run('cat /home/box/.bash_history')
-    assert commandThreeHalf in file_content, "You was not enter necessary commands. You need to use exec ssh-agent"
     
 def test_history_content_four(s):
     file_content = s.run('cat /home/box/.bash_history')
