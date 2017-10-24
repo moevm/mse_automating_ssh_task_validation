@@ -1,0 +1,35 @@
+# This is a sample Linux Challenge test scenario
+# Learn more: https://stepik.org/lesson/9180
+userName = 'vasya'
+cheat = 'bash_history'
+fileName = 'result.txt'
+command = 'scp'
+
+def test_connection(s):
+    assert s.run('true').succeeded, "Could not connect to server"
+    
+def test_file_exist(s):
+    s.run('sudo ls -al /home/box > /home/box/file_exist.txt')
+    file_content = s.run('cat /home/box/file_exist.txt')
+    s.run('sudo rm /home/box/file_exist.txt')
+    assert fileName in file_content, "Necessary file not exist."
+
+def test_file_content(s):
+    diff_content = s.run('sudo cat /home/box/'+fileName)  
+    s.run('sudo diff /home/vasya/remote_file.txt /home/box/local_file.txt > /home/box/res.txt')
+    diff_content_res = s.run('sudo cat /home/box/res.txt')   
+    s.run('sudo rm /home/box/res.txt')
+    assert diff_content == diff_content_res, "files not equals."  
+
+def test_user_denied(s):
+    s.run('sudo touch /home/box/auth.log')
+    s.run('sudo last > /home/box/auth.log')
+    file_content = s.run('cat /home/box/auth.log')
+    s.run('sudo rm /home/box/auth.log')
+    assert not(userName in file_content), "You shoudn't login with ssh."
+
+def test_cheat_denied(s):
+    file_content = s.run('cat /home/box/.bash_history')
+    assert not(cheat in file_content), "It's terrible. Cheating is so bad, please, try again.Just use ssh name@host"
+    
+   
