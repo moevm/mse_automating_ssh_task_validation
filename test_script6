@@ -1,0 +1,22 @@
+def test_connection(s):
+    assert s.run('true').succeeded, "Could not connect to server"
+    
+def test_rights(s):    
+    f = s.run('ls -l /etc/ssh/ -al').split('\n')
+    correct = False
+    for n in range(len(f)):
+        line = f[n]
+        str = line.split(' ')
+        str = [str[0]] + [str[-1]]        
+        str[1] = str[1].split('_')
+        if str[1][-1] == 'key.pub\r' and not (str[0] =='-rw-r--r--.'):
+            correct = False
+            assert correct, line             
+        if str[1][-1] == 'key\r' and not (str[0] =='-rw-------.'):
+            correct = False
+            assert correct, line
+     
+    
+
+    
+   
