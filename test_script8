@@ -1,0 +1,12 @@
+# This is a sample Linux Challenge test scenario
+# Learn more: https://stepik.org/lesson/9180
+
+def test_connection(s):
+    assert s.run('true').succeeded, "Could not connect to server"
+    
+def test_file(s):
+    res = "Shall I compare thee to a summer's day?\nThou art more lovely and more temperate:\nAnd summer's lease hath all too short a date:"    
+    s.run("echo -e \"Shall I compare thee to a summer's day?\nThou art more lovely and more temperate:\nAnd summer's lease hath all too short a date:\" > /home/box/tt.txt")
+    file1 = s.run('sudo -S -u vasya cat /home/vasya/remote_file.txt')    
+    file2 = s.run('sudo -S -u vasya cat /home/box/tt.txt')    
+    assert file1==file2, "inccorect file content"
