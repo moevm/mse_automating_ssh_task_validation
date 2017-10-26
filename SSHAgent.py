@@ -20,10 +20,6 @@ def test_history_content_one(s):
 def test_history_content_two(s):
     file_content = s.run('cat /home/box/.bash_history')
     assert commandTwo in file_content, "You was not enter necessary commands. You need to use ssh-copy-id"
-
-def test_history_content_three(s):
-    file_content = s.run('cat /home/box/.bash_history')
-    assert commandThree in file_content, "You was not enter necessary commands. You need to use ssh-agent"
     
 def test_history_content_four(s):
     file_content = s.run('cat /home/box/.bash_history')
