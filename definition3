@@ -1,0 +1,3 @@
+Необходимо сравнить используя ssh и diff два файла /home/box/local_file.txt /home/vasya/remote_file.txt.
+Пользователь vasya, пароль vasya, сервер localhost.
+Ответом на задание должен служить файл /home/box/result.txt.
